@@ -3,13 +3,12 @@
 
 <head>
     <title>web project</title>
-    <link rel="stylesheet" href="css.css">
-    <script rel="script" src="javascript/js.js" ></script>
+    <link rel="stylesheet" href="css/css.css">
 </head>
 <body>
     <div class="box">
         <h1 align="center">Login Form</h1>
-        <form role="form" method="post">
+        <form role="form" method="post" action="auth">
 
             <div class="inputBox">
                 <input type="text" name="username" autocomplete="off" required>
@@ -19,8 +18,7 @@
                 <input type="password" name="password" autocomplete="off" required>
                 <label>Password</label>
             </div>
-
-            <input type="submit" name="login" value="Login">
+            <input type="submit">
         </form>
         <br>
         <a href="Register.html">Click here to register.</a>
