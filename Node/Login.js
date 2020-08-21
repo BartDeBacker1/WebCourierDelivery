@@ -23,10 +23,10 @@ app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
 app.get('/', function(request, response) {
-    response.sendFile(path.join(__dirname + '/html/login.html'));
+    response.sendFile(path.join(__dirname + '/Node/index.html'));
 });
 
-app.post('/auth', function(request, response) {
+app.post('/', function(request, response) {
     let username = request.body.username;
     let password = request.body.password;
     if (username && password) {
@@ -45,7 +45,7 @@ app.post('/auth', function(request, response) {
         response.end();
     }
 });
-app.get('/home', function(request, response) {
+app.get('/', function(request, response) {
     if (request.session.loggedin) {
         response.send('Welcome back, ' + request.session.username + '!');
     } else {

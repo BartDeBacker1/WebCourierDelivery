@@ -1,71 +1,48 @@
-$(function(){
-    console.log('linked');
+'use strict';
 
-    getPackage();
+//events
+const submit = document.getElementById("login");
+submit.onclick = login();
 
+function login(){
+    let email = document.getElementById('emailinput').value;
+    let password = document.getElementById('passwordinput').value;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log('teest');
+            
+        }
+    };
+    xhttp.open("POST", "localhost:3000/checklogin", true);
+    xhttp.setRequestHeader("contentType", "applcation/json");
+    let jsonString = '{"email":"'+email+'","password":"'+password+'"}';
+    xhttp.send(jsonString);
 
-    //Eventlisteners voor buttons
-    $('#list').click(function(){
-        $('form').hide();
-        $('#ListPackages').show();
-        getList();
-    });
-
-
-
-    //Retrieves list of books from database using AJAX call
-    function getList(){
-
-        $.ajax({
-            url: 'http://127.0.0.1:3000/Order',
-            method: 'GET',
-            dataType: 'json'
-        }).done(function(data){
-            console.log('DONE');
-            //clean up previous data
-            $('#ListPackages').empty();
-            for(let b of data){
-                $('#ListPackages').append(`id: ${b.id}, user id: ${b.user_id}, status of order: ${b.status}, comments: ${b.comment}`);
-            }
-        }).fail(function(er1, er2){
-            console.log(er1);
-            console.log(er2);
-        });
+}
 
 
 
-    }
-
-    $('form').submit(function(e){
-        //standard behaviour block
-        e.preventDefault();
-
-        //Get all data from form with jQuery
-        // $(this).serialize
-        // $(this).serializeArray()
 
 
-        let PackageObject = {
-            id: $('#id').val(),
-            user_id: $('#user_id').val(),
-            status: $('#status').val(),
-            comment: $('#comment').val()
-        };
 
-        //Call to server
-        $.ajax({
-            url: 'http://127.0.0.1:3000/insertComment',
-            method: 'POST',
-            data: PackageObject
+//POST insertComment
+/*app.post('/insertComment', (req, res) => {
+    console.log('insert triggered!');
+    console.log(req.body);
 
-        }).done(function(data){
-            console.log('comment Inserted!');
+    connection.query(
+        'UPDATE order SET status = ? ,comment = ? WHERE `id` = ?',
+        [req.body.type, req.body.text, req.body.id],
+        function(err, results){
+            console.log(results);
+            console.log(err);
+        }
+    );
+    res.send('OK');
+
+});*/
 
 
-        }).fail(function(er1, er2){
-            console.log(er1);
-            console.log(er2);
-        });
-    });
 
-});
+
